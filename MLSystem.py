@@ -1,3 +1,6 @@
+# Code here is taken from CosmoML repository in CosmoAI-AES organisation
+# It was writen by Hans Georg Schaathun and then edited by Modestas Sukarevicius
+
 #! /usrbin/env python3
 
 """
@@ -85,6 +88,11 @@ class MLSystem:
         if model == 'squeezenet_pretrained':
             squeezenet = models.squeezenet1_1(pretrained=True)
             squeezenet.features[0] = nn.Conv2d(1, 64, kernel_size=3, stride=2)
+            squeezenet.classifier[1] = nn.Conv2d(512, self.nparams, kernel_size=1)
+            self.model = squeezenet
+        if model == 'squeezenet_pretrained_extra':
+            squeezenet = models.squeezenet1_1(pretrained=True)
+            squeezenet.features[0] = nn.Conv2d(1, 64, kernel_size=3, stride=2)
             final_conv = nn.Conv2d(512, 256, kernel_size=3, padding=1)
             squeezenet.final_conv = nn.Conv2d(512, 256, kernel_size=3, padding=1)
             squeezenet.classifier = nn.Sequential(
@@ -100,7 +108,7 @@ class MLSystem:
                 nn.Linear(512, self.nparams)
             )
             self.model = squeezenet
-        if model == 'inception_pretrained':
+        if model == 'inception_pretrained_extra':
             inception = models.inception_v3(pretrained=True, transform_input=False)
             inception.Conv2d_1a_3x3 = BasicConv2d(1, 32, kernel_size=3, stride=2)
             inception.fc = nn.Sequential(
@@ -111,7 +119,7 @@ class MLSystem:
                 nn.Linear(512, self.nparams))
             self.model = inception
             self.incep = True
-        if model == 'inception_pretrained_vanila':
+        if model == 'inception_pretrained':
             inception = models.inception_v3(pretrained=True, transform_input=False)
             inception.Conv2d_1a_3x3 = BasicConv2d(1, 32, kernel_size=3, stride=2)
             inception.fc = nn.Linear(2048, self.nparams)
@@ -163,7 +171,7 @@ class MLSystem:
         if model == 'vgg':
             self.model = vgg19(num_outputs=self.nparams)
         if model == 'efficientnet':
-            self.model = efficientnet_b3_5(num_outputs=self.nparams, extra_layers=True)
+            self.model = efficientnet_b4_5(num_outputs=self.nparams, extra_layers=True)
         if model == 'efficientnet_vanilla':
             self.model = efficientnet_b7(num_outputs=self.nparams, extra_layers=False)
         if model == 'efficientnet_v2':

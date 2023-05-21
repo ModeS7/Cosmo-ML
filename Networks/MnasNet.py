@@ -1,3 +1,5 @@
+# Code here is taken from Pytorch torchvision.models repository and then edited by Modestas Sukarevicius
+
 import warnings
 from functools import partial
 from typing import Any, Dict, List, Optional

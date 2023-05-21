@@ -1,3 +1,4 @@
+# Code here is taken from Pytorch torchvision.models repository and then edited by Modestas Sukarevicius
 
 import torch
 import torch.nn as nn

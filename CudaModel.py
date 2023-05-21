@@ -1,3 +1,6 @@
+# Code here is taken from CosmoML repository in CosmoAI-AES organisation
+# It was writen by Hans Georg Schaathun and then edited by Modestas Sukarevicius
+
 #! /usrbin/env python3
 
 """
@@ -15,7 +18,7 @@ from MLSystem import MLSystem, getArgs
 import cudaaux
 
 class CudaModel(MLSystem):
-   def __init__(self,model=None,criterion=None,optimizer=None,nepoch=2, learning_rate=0.0001):
+   def __init__(self,model='squeezenet_pretrained',criterion=None,optimizer=None,nepoch=2, learning_rate=0.0001):
         super().__init__(model,criterion,optimizer,nepoch, learning_rate)
 
         if not torch.cuda.is_available():
@@ -34,6 +37,6 @@ if __name__ == "__main__":
     cudaaux.cudaDiagnostic()
     print( "Configuring ... " )
 
-    ml = CudaModel(model= 'inception_pretrained_vanila')
+    ml = CudaModel()
     ml.systemTest(args)
 

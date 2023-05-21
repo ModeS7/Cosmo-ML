@@ -1,3 +1,5 @@
+# Code here is taken from Pytorch torchvision.models repository and then edited by Modestas Sukarevicius
+
 import math
 from collections import OrderedDict
 from functools import partial

@@ -1,3 +1,6 @@
+# Code here is taken from CosmoML repository in CosmoAI-AES organisation
+# It was writen by Hans Georg Schaathun and then edited by Modestas Sukarevicius
+
 #! /usr/bin/env python
 
 import pandas as pd

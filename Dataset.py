@@ -1,3 +1,6 @@
+# Code here is taken from CosmoML repository in CosmoAI-AES organisation
+# It was writen by Hans Georg Schaathun and then edited by Modestas Sukarevicius
+
 """
 The Dataset class manages loading and access to a dataset
 in the CosmoAI model.
