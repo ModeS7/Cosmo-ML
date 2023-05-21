@@ -1,3 +1,5 @@
+# Code here is taken from CosmoML repository in CosmoAI-AES organisation
+# It was writen by Hans Georg Schaathun and then edited by Modestas Sukarevicius
 
 import torch
 from MLSystem import MLSystem, getArgs
