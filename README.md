@@ -1,12 +1,5 @@
-# CosmoAI
-
-*Machine learning tools for lens mass reconstruction*
-
-The **Simulation Tool** has been renamed as 
-[CosmoSim](https://github.com/CosmoAI-AES/CosmoSim).
-This repo will continue the related machine learning work.
-
-On [Virtual Environments in Python](https://stackoverflow.com/questions/14684968/how-to-export-virtualenv)
+Code here is taken from CosmoML repository in CosmoAI-AES organisation
+It was writen by Hans Georg Schaathun and then edited by Modestas Sukarevicius.
 
 # Design
 
@@ -14,31 +7,29 @@ The `MLSystem` class is designed to do a vanilla setup running on the CPU.
 The `CudaModel` class inherits from `MLSystem`, making sufficient overrides
 to run on a GPU.
 
-# Problems
+# Setup and running
 
-1.  Python often crashes in the `loss.backward()` call, at different stages
-    of the iteration.  It is possible that this is a memory allocation problem
-    depending on other activity on the box.  It seems to happen more often with
-    concurrent interactive use.
+Step 0 - Install cuda toolkit from Nvidia if you don't have it already. 
+It can be found here: https://developer.nvidia.com/cuda-toolkit
 
-# Setup at IDUN
-
-Tested 4 May 2023, the following setup sequence seems to work at IDUN.
-We have previously not been able to use the PyTorch module and therefore
-install via pip.
-
+Step 1 - We recommend to use virtual python environment for this project. 
+Then install all the needed libraries: 
 ```sh
-module load CMake/3.22.1-GCCcore-11.2.0 
-module load SciPy-bundle/2021.10-foss-2021b
-pip3 install pip --upgrade
-pip3 install torch
+pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+pip install -r requirements.txt
 ```
+Step 2 - Selecting network and few hyperparameters: 
+open CudaModel.py -> write a network to test
+model='<wanted neural network>'(all neural network options are in MLSystem.py). 
+At the same time number of epochs and learning rate can be chosen.
 
-It is recommended to keep a python virtual environment, e.g.
+Step 3 - Choosing the rest of hyperparameters: open MLSystem.py here batch size, 
+optimizer, criteration(loss function) is chosen.
 
+Step 4 - To start testing command like this with arguments should be used: 
 ```sh
-python3 -m venv ~/CosmoML.venv
-. ~/CosmoML.venv/bin/activate
-pip3 install pip --upgrade
-pip3 install torch
+python CudaModel.py -t "<csv file for training data set>" -i "<csv file for testing data set>" 
+-T "<directory for training data set images>" -I "<directory for testing data set images>" 
+-p "<csv file for predicted values on test set at the end of training>" 
+-o "<csv file for total loss data of every epoch>"
 ```
